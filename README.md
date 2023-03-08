@@ -1,15 +1,15 @@
-<h1 align="center">ecoVAD_chirpR</h1>
-<h2 align="center">A modified version of [ecoVAD](https://github.com/NINAnor/ecoVAD)</h2>
+# ecoVAD_chirpR
+## A modified version of [ecoVAD](https://github.com/NINAnor/ecoVAD)
 
 ![CC BY-NC-SA 4.0][license-badge]
-[license-badge]: https://badgen.net/badge/License/CC-BY-NC-SA%204.0/green
+[license-badge]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg
 
 
 ## Introduction
 
 This is a modified version of [ecoVAD](https://github.com/NINAnor/ecoVAD) using pipenv instead of poetry and include modifications for integration in to chirpR and models for analyzing acoustic recordings in urban environments.
 
-ecoVAD was developed by Cretosis et al. (2022) and should be cited as such.
+ecoVAD was developed by Cretois et al. (2022) and should be cited as such.
 
 ```
 Cretois, B., Rosten, C. M., & Sethi, S. S. (2022). Voice activity detection in eco-acoustic data enables privacy protection and is a proxy for human disturbance. Methods in Ecology and Evolution, 00,   1–10 .   https://doi.org/10.1111/2041-210X.14005
