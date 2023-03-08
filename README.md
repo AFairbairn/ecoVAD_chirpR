@@ -1,9 +1,7 @@
 # ecoVAD_chirpR
 ## A modified version of [ecoVAD](https://github.com/NINAnor/ecoVAD)
 
-![CC BY-NC-SA 4.0][license-badge]
-[license-badge]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg
-
+![CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg)
 
 ## Introduction
 
