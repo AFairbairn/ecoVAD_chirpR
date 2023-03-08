@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This is a modified version of [ecoVAD](https://github.com/NINAnor/ecoVAD) using pipenv instead of poetry and include modifications for integration in to chirpR and models for analyzing acoustic recordings in urban environments.
+This is a modified version of [ecoVAD](https://github.com/NINAnor/ecoVAD) for integration in to chirpR including models for analyzing acoustic recordings in urban environments.
 
 ecoVAD was developed by Cretois et al. (2022) and should be cited as such.
 
@@ -19,4 +19,4 @@ In keeping with the license requirements this version of ecoVAD is redistributed
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Change list
-    + Removed Docker
+- Removed Docker
