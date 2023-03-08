@@ -19,4 +19,4 @@ In keeping with the license requirements this version of ecoVAD is redistributed
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Change list
-
+    + Removed Docker
