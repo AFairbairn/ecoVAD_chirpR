@@ -2,41 +2,6 @@
 ############ CONFIG FILE FOR TRAINING ECOVAD FROM SCRATCH ###########
 #####################################################################
 
-#################################################
-# Parameters for Generating a synthetic dataset #
-#################################################
-
-# Path to the audio files to be processed (e.g. the ones that come from 
-# the field experiment)
-AUDIO_PATH: "./assets/demo_data/training_model/soundscape_data/"
-
-# Path to the directory containing human speech files
-SPEECH_DIR: "./assets/demo_data/training_model/human_voices/"
-
-# Path to the directory containing noise (e.g. environmental noises, animal vocalization)
-NOISE_DIR: "./assets/demo_data/training_model/natural_sounds/"
-
-# Length of the output audio file (in ms) 
-LENGTH_SEGMENTS: 3
-
-# Probability of including human speech on a given segment
-PROBA_SPEECH: 0.5
-
-# When speech is added, what is the probability of adding noise to the segment
-PROBA_NOISE_WHEN_SPEECH: 0.5
-
-# When speech is added, what is the probability of adding noise to the segment
-PROBA_NOISE_WHEN_NO_SPEECH: 0.9
-
-# Path to the folder storing the segments
-AUDIO_OUT_DIR: "./assets/demo_data/training_model/synthetic_dataset"
-
-# Whether the dataset should include background noises
-INCLUDE_NOISES: True
-
-# Whether the dataset should include the soundscape 
-INCLUDE_SOUNDSCAPE: True
-
 ########################################
 #### Parameters for training ecoVAD ####
 ########################################
