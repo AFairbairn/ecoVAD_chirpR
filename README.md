@@ -20,3 +20,7 @@ In keeping with the license requirements this version of ecoVAD is redistributed
 
 ## Change list
 - Removed Docker
+- Removed poetry
+- Created dependencies.txt
+    - For use with a virtualenv and reticulate in R
+- Removed notebooks
