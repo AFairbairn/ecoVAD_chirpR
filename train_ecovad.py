@@ -44,6 +44,8 @@ if __name__ == "__main__":
 
         save_processed_arrays(file, cfg["AUDIO_OUT_DIR"], processed_arr, sr)
 
+    print(f"Created {len(processed_arr)} training segments in {cfg['AUDIO_OUT_DIR']}")
+
     # Train the model
     print("Training the model")
     trainingApp(cfg["TRAIN_VAL_PATH"],
