@@ -46,7 +46,10 @@ if __name__ == "__main__":
 
         save_processed_arrays(file, cfg["AUDIO_OUT_DIR"], processed_arr, sr)
 
-    print(f"Created {len(processed_arr)} training segments in {cfg['AUDIO_OUT_DIR']}")
+    synth_dat_len = len(processed_arr)
+    if(synth_dat_len == 0):
+        raise ValueError("No training segments were generated. Please check your config file.")
+    print(f"Created {synth_dat_len} training segments in {cfg['AUDIO_OUT_DIR']}")
 
     # Train the model
     print("Training the model...")

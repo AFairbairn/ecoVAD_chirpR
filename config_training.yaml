@@ -78,7 +78,7 @@ NUM_EPOCH: 50
 ##############################
 
 # Tensorboard folder
-TB_PREFIX: "demo_training"
+TB_PREFIX: "model_training"
 
 # Comment suffix for Tensorboard run
 TB_COMMENT: "no-comments"

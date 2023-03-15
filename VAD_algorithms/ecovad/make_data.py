@@ -97,6 +97,7 @@ def preprocess_file(audio_path, length_segments, overlap, min_length,
     processed_arrays = []
 
     arr, sr = openAudioFile(audio_path)
+    print(arr, sr)
     split_sig = splitSignal(arr, sr, length_segments, overlap, min_length)
 
     for arr in split_sig:
