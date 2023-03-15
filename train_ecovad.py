@@ -3,6 +3,7 @@
 import argparse
 import yaml
 import glob
+import os
 
 from yaml import FullLoader
 
@@ -27,7 +28,12 @@ if __name__ == "__main__":
         cfg = yaml.load(f, Loader=FullLoader)
 
     # Prepare the synthetic dataset
-    list_audio_files = glob.glob(cfg["AUDIO_PATH"] + "/*")
+    # list_audio_files = glob.glob(cfg["AUDIO_PATH"] + "/*")
+    list_audio_files = []
+    for dirpath, dirnames, filenames in os.walk(cfg["AUDIO_PATH"]):
+        for file in filenames:
+            if file.endswith(('.wav', '.mp3', '.flac')):
+                list_audio_files.append(os.path.join(dirpath, file))
     print("Found {} files to split into training segments".format(len(list_audio_files)))
     print(f"Found {len(glob.glob(cfg['SPEECH_DIR'] + '/*'))} speech files.")
     print(f"Found {len(glob.glob(cfg['NOISE_DIR'] + '/*'))} noise files.")
