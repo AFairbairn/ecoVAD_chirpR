@@ -28,12 +28,10 @@ if __name__ == "__main__":
 
     # Prepare the synthetic dataset
     list_audio_files = glob.glob(cfg["AUDIO_PATH"] + "/*")
-    list_audio_files = glob.glob(cfg["SPEECH_DIR"] + "/*")
-    list_audio_files = glob.glob(cfg["NOISE_DIR"] + "/*")
     print("Found {} files to split into training segments".format(len(list_audio_files)))
     print(f"Found {len(glob.glob(cfg['SPEECH_DIR'] + '/*'))} speech files.")
     print(f"Found {len(glob.glob(cfg['NOISE_DIR'] + '/*'))} noise files.")
-    print("Generating the synthetic dataset")
+    print("Generating the synthetic dataset...")
 
     for file in list_audio_files:
         processed_arr, sr = preprocess_file(file, 
@@ -51,7 +49,7 @@ if __name__ == "__main__":
     print(f"Created {len(processed_arr)} training segments in {cfg['AUDIO_OUT_DIR']}")
 
     # Train the model
-    print("Training the model")
+    print("Training the model...")
     trainingApp(cfg["TRAIN_VAL_PATH"],
             cfg["MODEL_SAVE_PATH"],
             cfg["CKPT_SAVE_PATH"],
