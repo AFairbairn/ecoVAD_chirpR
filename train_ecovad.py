@@ -4,7 +4,7 @@ import argparse
 import yaml
 import glob
 import os
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 
 
 from yaml import FullLoader
@@ -46,6 +46,8 @@ if __name__ == "__main__":
     with open(cli_args.config) as f:
         cfg = yaml.load(f, Loader=FullLoader)
 
+    num_workers = cfg["NUM_WORKERS"]
+
     # Prepare the synthetic dataset
     # list_audio_files = glob.glob(cfg["AUDIO_PATH"] + "/*")
     list_audio_files = []
@@ -59,7 +61,7 @@ if __name__ == "__main__":
     print("Generating the synthetic dataset...")
 
     synth_dat_len = 0
-    with ProcessPoolExecutor() as executor:
+    with ProcessPoolExecutor(max_workers = num_workers) as executor:
         for result in executor.map(process_file, list_audio_files):
             synth_dat_len += result
 
