@@ -110,6 +110,15 @@ def save_processed_arrays(audio_path, save_dir, list_processed_arrays, sr):
 
     save_name = audio_path.split("/")[-1].split(".")[0]
 
+    speech_dir = os.path.join(save_dir, "speech")
+    no_speech_dir = os.path.join(save_dir, "no_speech")
+
+    if not os.path.exists(speech_dir):
+        os.makedirs(speech_dir)
+        
+    if not os.path.exists(no_speech_dir):
+        os.makedirs(no_speech_dir)
+
     for i, arr_label in enumerate(list_processed_arrays):
 
         processed_arr, label = arr_label
