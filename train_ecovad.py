@@ -4,11 +4,30 @@ import argparse
 import yaml
 import glob
 import os
+from concurrent.futures import ThreadPoolExecutor
+
 
 from yaml import FullLoader
 
+
 from VAD_algorithms.ecovad.make_data import preprocess_file, save_processed_arrays
 from VAD_algorithms.ecovad.train_model import trainingApp
+
+
+def process_file(file):
+    processed_arr, sr = preprocess_file(file,
+                                        cfg["LENGTH_SEGMENTS"],
+                                        overlap=0,
+                                        min_length=cfg["LENGTH_SEGMENTS"],
+                                        speech_dir=cfg["SPEECH_DIR"],
+                                        noise_dir=cfg["NOISE_DIR"],
+                                        proba_speech=cfg["PROBA_SPEECH"],
+                                        proba_noise_speech=cfg["PROBA_NOISE_WHEN_SPEECH"],
+                                        proba_noise_nospeech=cfg["PROBA_NOISE_WHEN_NO_SPEECH"])
+    save_processed_arrays(file, cfg["AUDIO_OUT_DIR"], processed_arr, sr)
+    return(len(processed_arr))
+
+
 
 if __name__ == "__main__":
 
@@ -39,18 +58,10 @@ if __name__ == "__main__":
     print(f"Found {len(glob.glob(cfg['NOISE_DIR'] + '/*'))} noise files.")
     print("Generating the synthetic dataset...")
 
-    for file in list_audio_files:
-        processed_arr, sr = preprocess_file(file, 
-                        cfg["LENGTH_SEGMENTS"], 
-                        overlap = 0, 
-                        min_length = cfg["LENGTH_SEGMENTS"],
-                        speech_dir=cfg["SPEECH_DIR"],
-                        noise_dir=cfg["NOISE_DIR"],
-                        proba_speech=cfg["PROBA_SPEECH"],
-                        proba_noise_speech=cfg["PROBA_NOISE_WHEN_SPEECH"],
-                        proba_noise_nospeech=cfg["PROBA_NOISE_WHEN_NO_SPEECH"])
-
-        save_processed_arrays(file, cfg["AUDIO_OUT_DIR"], processed_arr, sr)
+    synth_dat_len = 0
+    with ProcessPoolExecutor() as executor:
+        for result in executor.map(process_file, list_audio_files):
+            synth_dat_len += result
 
     synth_dat_len = len(processed_arr)
     if(synth_dat_len == 0):
