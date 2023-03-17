@@ -25,7 +25,7 @@ PROBA_SPEECH: 0.5
 # When speech is added, what is the probability of adding noise to the segment
 PROBA_NOISE_WHEN_SPEECH: 0.5
 
-# When speech is added, what is the probability of adding noise to the segment
+# When no speech is added, what is the probability of adding noise to the segment
 PROBA_NOISE_WHEN_NO_SPEECH: 0.9
 
 # Path to the folder storing the segments

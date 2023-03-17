@@ -56,8 +56,7 @@ if __name__ == "__main__":
             if file.endswith(('.wav', '.mp3', '.flac')):
                 list_audio_files.append(os.path.join(dirpath, file))
     print("Found {} files to split into training segments".format(len(list_audio_files)))
-    print(f"Found {len(glob.glob(cfg['SPEECH_DIR'] + '/*'))} speech files.")
-    print(f"Found {len(glob.glob(cfg['NOISE_DIR'] + '/*'))} noise files.")
+
     print("Generating the synthetic dataset...")
 
     synth_dat_len = 0
