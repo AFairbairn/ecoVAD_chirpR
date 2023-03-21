@@ -9,10 +9,10 @@ from torch.utils.data import Dataset
 from pydub import AudioSegment
 from sklearn.preprocessing import LabelEncoder
 
-import numpy as np
 import librosa
-import torch
+import numpy as np
 import os
+import torch
 
 from utils.process_audio import openAudioFile
 

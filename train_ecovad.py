@@ -4,11 +4,10 @@ import argparse
 import yaml
 import glob
 import os
+
 from concurrent.futures import ProcessPoolExecutor
 
-
 from yaml import FullLoader
-
 
 from VAD_algorithms.ecovad.make_data import preprocess_file, save_processed_arrays
 from VAD_algorithms.ecovad.train_model import trainingApp
