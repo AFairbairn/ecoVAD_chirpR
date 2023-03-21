@@ -10,7 +10,7 @@ import os
 from yaml import FullLoader
 from audiomentations import Compose, AddBackgroundNoise, Shift, Gain
 
-from utils.process_audio import openAudioFile, splitSignal
+from ...utils.process_audio import openAudioFile, splitSignal
 
 RANDOM = np.random.RandomState(42)
 

@@ -15,9 +15,9 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.optim import SGD
 from torch.optim.lr_scheduler import StepLR
 
-from VAD_algorithms.ecovad.VGG11 import VGG11
-from VAD_algorithms.ecovad._utils.audiodataset import AudioDataset
-from VAD_algorithms.ecovad._utils.earlystopping import EarlyStopping
+from .VGG11 import VGG11
+from ._utils.audiodataset import AudioDataset
+from ._utils.earlystopping import EarlyStopping
 
 class trainingApp():
     
