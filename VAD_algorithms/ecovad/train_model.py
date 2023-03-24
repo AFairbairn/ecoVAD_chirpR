@@ -15,9 +15,9 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.optim import SGD
 from torch.optim.lr_scheduler import StepLR
 
-from VGG11 import VGG11
-from _utils.audiodataset import AudioDataset
-from _utils.earlystopping import EarlyStopping
+from .VGG11 import VGG11
+from ._utils.audiodataset import AudioDataset
+from ._utils.earlystopping import EarlyStopping
 
 class trainingApp():
     
@@ -264,7 +264,7 @@ if __name__ == '__main__':
             cfg["BATCH_SIZE"],
             cfg["NUM_EPOCH"],
             cfg["TB_PREFIX"],
-            cfg["TB_COMMENTS"],
+            cfg["TB_COMMENT"],
             cfg["LR"],
             cfg["MOMENTUM"],
             cfg["DECAY"],

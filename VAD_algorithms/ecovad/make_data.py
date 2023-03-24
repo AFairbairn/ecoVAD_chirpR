@@ -97,7 +97,6 @@ def preprocess_file(audio_path, length_segments, overlap, min_length,
     processed_arrays = []
 
     arr, sr = openAudioFile(audio_path)
-    print(arr, sr)
     split_sig = splitSignal(arr, sr, length_segments, overlap, min_length)
 
     for arr in split_sig:
@@ -108,7 +107,7 @@ def preprocess_file(audio_path, length_segments, overlap, min_length,
 
 def save_processed_arrays(audio_path, save_dir, list_processed_arrays, sr):
 
-    save_name = audio_path.split("/")[-1].split(".")[0]
+    save_name = os.path.basename(audio_path)
 
     speech_dir = os.path.join(save_dir, "speech")
     no_speech_dir = os.path.join(save_dir, "no_speech")

@@ -14,7 +14,7 @@ import numpy as np
 import os
 import torch
 
-from utils.process_audio import openAudioFile
+from .process_audio import openAudioFile
 
 class AudioDataset(Dataset):
     def __init__(self, data_root, n_fft, hop_length, n_mels, sr=16000):

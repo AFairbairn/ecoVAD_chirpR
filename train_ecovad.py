@@ -13,7 +13,7 @@ from VAD_algorithms.ecovad.make_data import preprocess_file, save_processed_arra
 from VAD_algorithms.ecovad.train_model import trainingApp
 
 
-def process_file(file):
+def process_file(file, cfg):
     processed_arr, sr = preprocess_file(file,
                                         cfg["LENGTH_SEGMENTS"],
                                         overlap=0,
@@ -23,7 +23,7 @@ def process_file(file):
                                         proba_speech=cfg["PROBA_SPEECH"],
                                         proba_noise_speech=cfg["PROBA_NOISE_WHEN_SPEECH"],
                                         proba_noise_nospeech=cfg["PROBA_NOISE_WHEN_NO_SPEECH"])
-    save_processed_arrays(file, cfg["AUDIO_OUT_DIR"], processed_arr, sr)
+    save_processed_arrays(file, os.path.normpath(cfg["AUDIO_OUT_DIR"]), processed_arr, sr)
     return(len(processed_arr))
 
 
@@ -50,20 +50,18 @@ if __name__ == "__main__":
     # Prepare the synthetic dataset
     # list_audio_files = glob.glob(cfg["AUDIO_PATH"] + "/*")
     list_audio_files = []
-    for dirpath, dirnames, filenames in os.walk(cfg["AUDIO_PATH"]):
+    for dirpath, dirnames, filenames in os.walk(os.path.normpath(cfg["AUDIO_PATH"])):
         for file in filenames:
             if file.endswith(('.wav', '.mp3', '.flac')):
                 list_audio_files.append(os.path.join(dirpath, file))
     print("Found {} files to split into training segments".format(len(list_audio_files)))
-
     print("Generating the synthetic dataset...")
 
     synth_dat_len = 0
     with ProcessPoolExecutor(max_workers = num_workers) as executor:
         for result in executor.map(process_file, list_audio_files):
             synth_dat_len += result
-
-    synth_dat_len = len(processed_arr)
+            
     if(synth_dat_len == 0):
         raise ValueError("No training segments were generated. Please check your config file.")
     print(f"Created {synth_dat_len} training segments in {cfg['AUDIO_OUT_DIR']}")

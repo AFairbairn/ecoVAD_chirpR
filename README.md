@@ -21,6 +21,8 @@ In keeping with the license requirements this version of ecoVAD is redistributed
 ## Change list
 - Removed Docker
 - Removed poetry
-- Created dependencies.txt
-    - For use with a virtualenv and reticulate in R
+- Created requirements.txt
+- Corrected dependency conflict
 - Removed notebooks
+- train_ecovad now looks for audio files, not all files in a directory
+- creating synthetic data is now parallelized
