@@ -59,9 +59,9 @@ if __name__ == "__main__":
 
     synth_dat_len = 0
     with ProcessPoolExecutor(max_workers = num_workers) as executor:
-        for result in executor.map(process_file, list_audio_files):
+        for result in executor.map(process_file, list_audio_files, [cfg]):
             synth_dat_len += result
-            
+
     if(synth_dat_len == 0):
         raise ValueError("No training segments were generated. Please check your config file.")
     print(f"Created {synth_dat_len} training segments in {cfg['AUDIO_OUT_DIR']}")
