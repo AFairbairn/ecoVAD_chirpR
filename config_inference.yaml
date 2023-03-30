@@ -7,14 +7,14 @@
 ###################
 
 # Path to the data to be anonymised
-PATH_INPUT_DATA: "./assets/demo_data/data_to_anonymised"
+PATH_INPUT_DATA: ""
 
 # Path to the result files, namely json files containing the start and end of detections
 # One json file is created per analysed file
-PATH_JSON_DETECTIONS: "./assets/demo_data/detections/json/ecoVAD"
+PATH_JSON_DETECTIONS: ""
 
 # Path to store the anonymised data (i.e. audiofiles where human speech has clearly been removed)
-PATH_ANONYMIZED_DATA: "./assets/demo_data/anonymised_data"
+PATH_ANONYMIZED_DATA: ""
 
 ##############################################
 # Algorithm to use in anonymisation.py script #
@@ -31,7 +31,7 @@ CHOSEN_VAD: "ecovad"
 
 # Path to ecoVAD weights, the default weights are stored in ./assets/model_weights/
 # Note that you can also use your own model weights
-ECOVAD_WEIGHTS_PATH: "./assets/model_weights/ecoVAD_ckpt.pt"
+ECOVAD_WEIGHTS_PATH: ""
 
 # Confidence threshold.
 THRESHOLD: 0.7
@@ -69,7 +69,7 @@ PATH_PARSED_JSON: "./assets/demo_data/detections/parsed_json/parsed_json.csv"
 PATH_SAMPLE_DETECTIONS: "./assets/demo_data/sample_detections"
 
 # Number of samples that should be taken
-NUMBER_OF_SAMPLES: 5
+NUMBER_OF_SAMPLES: 0
 
 # Random seed
 RANDOM_SEED: 42
