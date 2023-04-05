@@ -8,27 +8,22 @@ import soundfile
 import json
 
 from yaml import FullLoader
-from pyannote.audio import Pipeline
+#from pyannote.audio import Pipeline
 
-from VAD_algorithms.pyannote.pyannote_predict import PyannotePredict
+#from VAD_algorithms.pyannote.pyannote_predict import PyannotePredict
 from VAD_algorithms.ecovad.ecoVAD_predict import ecoVADpredict
-from VAD_algorithms.webrtcvad.webrtc_predict import WebrtcvadPredict
+#from VAD_algorithms.webrtcvad.webrtc_predict import WebrtcvadPredict
 
 from utils.process_audio import openAudioFile
 
 def remove_extension(input):
 
-    filename = input.split("/")[-1].split(".")
-
-    if len(filename) > 2:
-        filename = ".".join(filename[0:-1])
-    else:
-        filename = input.split("/")[-1].split(".")[0]
+    filename, extension = os.path.splitext(os.path.basename(input))
 
     return filename
 
+# Fix this - it's not working properly
 def parseFolders(apath, rpath):
-
     audio_files = [f for f in glob.glob(apath + "/**/*", recursive = True) if os.path.isfile(f)]
     audio_no_extension = []
     for audio_file in audio_files:
@@ -74,22 +69,22 @@ def audio_anonymisation(json_file, audio_file):
 
 def infer_detections(VAD_model, audiofile, out_path, cfg):
 
-    if VAD_model == "pyannote":
-        pipeline = Pipeline.from_pretrained("pyannote/voice-activity-detection")
-        PyannotePredict(pipeline, audiofile, out_path).main()
+    #if VAD_model == "pyannote":
+    #    pipeline = Pipeline.from_pretrained("pyannote/voice-activity-detection")
+    #    PyannotePredict(pipeline, audiofile, out_path).main()
 
-    elif VAD_model == "ecovad":
+    if VAD_model == "ecovad":
         ecoVADpredict(audiofile, 
             out_path,
             cfg["ECOVAD_WEIGHTS_PATH"],
             cfg["THRESHOLD"],
             cfg["USE_GPU"]).main()
 
-    elif VAD_model == "webrtcvad":
-        WebrtcvadPredict(audiofile, 
-                        out_path,
-                        cfg["FRAME_LENGTH"],
-                        cfg["AGGRESSIVENESS"]).main()
+    #elif VAD_model == "webrtcvad":
+    #    WebrtcvadPredict(audiofile, 
+    #                    out_path,
+    #                    cfg["FRAME_LENGTH"],
+    #                    cfg["AGGRESSIVENESS"]).main()
     else:
         print("Please choose a correct VAD model")
 
@@ -121,8 +116,8 @@ if __name__ == "__main__":
     print("Found {} files to analyze".format(len(audiofiles)))
 
     for audiofile in audiofiles:
-        out_name = audiofile.split('/')[-1].split('.')[0]
-        out_path = os.sep.join([cfg["PATH_JSON_DETECTIONS"], out_name])
+        out_name = os.path.splitext(os.path.basename(audiofile))[0]
+        out_path = os.path.join(cfg["PATH_JSON_DETECTIONS"], out_name)
         infer_detections(cfg["CHOSEN_VAD"], audiofile, out_path, cfg)
 
     #########################
@@ -136,7 +131,7 @@ if __name__ == "__main__":
         afile = parsed_folders[i]['audio']
         rfile = parsed_folders[i]['result']
 
-        audio_name = afile.split("/")[-1].split(".")[0]
+        audio_name = os.path.basename(afile)
         save_name = os.sep.join([cfg["PATH_ANONYMIZED_DATA"], "ANONYMISED_" + audio_name])
 
         anonymised_arr, sr = audio_anonymisation(rfile, afile)
