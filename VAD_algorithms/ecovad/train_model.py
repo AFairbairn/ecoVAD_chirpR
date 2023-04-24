@@ -15,7 +15,7 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.optim import SGD
 from torch.optim.lr_scheduler import StepLR
 
-from VGG11 import VGG11
+from .VGG11 import VGG11
 from _utils.audiodataset import AudioDataset
 from _utils.earlystopping import EarlyStopping
 
