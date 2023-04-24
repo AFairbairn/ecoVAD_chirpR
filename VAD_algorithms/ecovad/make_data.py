@@ -10,7 +10,7 @@ import os
 from yaml import FullLoader
 from audiomentations import Compose, AddBackgroundNoise, Shift, Gain
 
-from utils.process_audio import openAudioFile, splitSignal
+from _utils.process_audio import openAudioFile, splitSignal
 
 RANDOM = np.random.RandomState(42)
 
@@ -97,6 +97,7 @@ def preprocess_file(audio_path, length_segments, overlap, min_length,
     processed_arrays = []
 
     arr, sr = openAudioFile(audio_path)
+    # arr = arr.astype(np.float32) # convert to np.float32
     split_sig = splitSignal(arr, sr, length_segments, overlap, min_length)
 
     for arr in split_sig:

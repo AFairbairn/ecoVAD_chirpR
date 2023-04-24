@@ -44,40 +44,44 @@ if __name__ == "__main__":
     # Open the config file
     with open(cli_args.config) as f:
         cfg = yaml.load(f, Loader=FullLoader)
+    
+    # Run below only if config of "TRAIN_ONLY" is set to False
+    if not cfg["TRAIN_ONLY"]:
+        num_workers = cfg["NUM_WORKERS"]
 
-    num_workers = cfg["NUM_WORKERS"]
+        # Prepare the synthetic dataset
+        # list_audio_files = glob.glob(cfg["AUDIO_PATH"] + "/*")
+        list_audio_files = []
+        for dirpath, dirnames, filenames in os.walk(os.path.normpath(cfg["AUDIO_PATH"])):
+            for file in filenames:
+                if file.endswith(('.wav', '.mp3', '.flac')):
+                    list_audio_files.append(os.path.join(dirpath, file))
+        print("Found {} files to split into training segments".format(len(list_audio_files)))
+        print("Generating the synthetic dataset...")
 
-    # Prepare the synthetic dataset
-    # list_audio_files = glob.glob(cfg["AUDIO_PATH"] + "/*")
-    list_audio_files = []
-    for dirpath, dirnames, filenames in os.walk(os.path.normpath(cfg["AUDIO_PATH"])):
-        for file in filenames:
-            if file.endswith(('.wav', '.mp3', '.flac')):
-                list_audio_files.append(os.path.join(dirpath, file))
-    print("Found {} files to split into training segments".format(len(list_audio_files)))
-    print("Generating the synthetic dataset...")
+        synth_dat_len = 0
+        with ProcessPoolExecutor(max_workers=num_workers) as executor:
+            results = executor.map(process_file, list_audio_files, [cfg]*len(list_audio_files))
+            for result in results:
+                synth_dat_len += result
 
-    synth_dat_len = 0
-    with ProcessPoolExecutor(max_workers = num_workers) as executor:
-        for result in executor.map(process_file, list_audio_files, [cfg]):
-            synth_dat_len += result
-
-    if(synth_dat_len == 0):
-        raise ValueError("No training segments were generated. Please check your config file.")
-    print(f"Created {synth_dat_len} training segments in {cfg['AUDIO_OUT_DIR']}")
+        if(synth_dat_len == 0):
+            raise ValueError("No training segments were generated. Please check your config file.")
+        print(f"Created {synth_dat_len} training segments in {cfg['AUDIO_OUT_DIR']}")
 
     # Train the model
-    print("Training the model...")
-    trainingApp(cfg["TRAIN_VAL_PATH"],
-            cfg["MODEL_SAVE_PATH"],
-            cfg["CKPT_SAVE_PATH"],
-            cfg["BATCH_SIZE"],
-            cfg["NUM_EPOCH"],
-            cfg["TB_PREFIX"],
-            cfg["TB_COMMENT"],
-            cfg["LR"],
-            cfg["MOMENTUM"],
-            cfg["DECAY"],
-            cfg["NUM_WORKERS"],
-            cfg["USE_GPU"]
-            ).main()
+    if cfg["TRAIN"]:
+        print("Training the model...")
+        trainingApp(cfg["TRAIN_VAL_PATH"],
+                cfg["MODEL_SAVE_PATH"],
+                cfg["CKPT_SAVE_PATH"],
+                cfg["BATCH_SIZE"],
+                cfg["NUM_EPOCH"],
+                cfg["TB_PREFIX"],
+                cfg["TB_COMMENT"],
+                cfg["LR"],
+                cfg["MOMENTUM"],
+                cfg["DECAY"],
+                cfg["NUM_WORKERS"],
+                cfg["USE_GPU"]
+                ).main()

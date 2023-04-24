@@ -5,7 +5,10 @@
 #################################################
 # Parameters for Generating a synthetic dataset #
 #################################################
-
+# Logical, defaults True, false if you only want to create synthetic data
+TRAIN: True
+# Logical, defaults False, True if you want to create synthetic data
+TRAIN_ONLY: False
 # Path to the audio files to be processed (e.g. the ones that come from 
 # the field experiment)
 AUDIO_PATH: "./assets/demo_data/training_model/soundscape_data/"
@@ -16,7 +19,7 @@ SPEECH_DIR: "./assets/demo_data/training_model/human_voices/"
 # Path to the directory containing noise (e.g. environmental noises, animal vocalization)
 NOISE_DIR: "./assets/demo_data/training_model/natural_sounds/"
 
-# Length of the output audio file (in ms) 
+# Length of the output audio file (in s) 
 LENGTH_SEGMENTS: 3
 
 # Probability of including human speech on a given segment
