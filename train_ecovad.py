@@ -46,7 +46,7 @@ if __name__ == "__main__":
         cfg = yaml.load(f, Loader=FullLoader)
     
     # Run below only if config of "TRAIN_ONLY" is set to False
-    if not cfg["TRAIN_ONLY"]:
+    if cfg["TRAIN_ONLY"] == "no":
         num_workers = cfg["NUM_WORKERS"]
 
         # Prepare the synthetic dataset
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         print(f"Created {synth_dat_len} training segments in {cfg['AUDIO_OUT_DIR']}")
 
     # Train the model
-    if cfg["TRAIN"]:
+    if cfg["TRAIN"] == "yes":
         print("Training the model...")
         trainingApp(cfg["TRAIN_VAL_PATH"],
                 cfg["MODEL_SAVE_PATH"],
